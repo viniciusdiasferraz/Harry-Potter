@@ -76,7 +76,6 @@ export default function Home() {
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             <Title text={"Navegue pelas casas"} />
-
             <Grid
               sx={{
                 display: "flex",
