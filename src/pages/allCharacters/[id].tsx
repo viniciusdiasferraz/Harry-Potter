@@ -1,25 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import {
-  Backdrop,
   Box,
-  Button,
   Container,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogTitle,
-  Fade,
   IconButton,
-  Modal,
   Typography,
   styled,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useCharacter from "../../fetch/fetch-characters";
 import CloseIcon from "@mui/icons-material/Close";
 import Title from "@/components/Title";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
+import { DataState } from "@/types/types";
 
 const BootstrapDialog = styled(Dialog)(({ theme }: any) => ({
   "& .MuiDialogContent-root": {
@@ -36,7 +31,7 @@ export default function AllCharacters() {
   const { data, getCharacters, getCharacterHouses, removeLoading } =
     useCharacter();
   const [open, setOpen] = useState(false);
-  const [person, setPerson] = useState<any>({});
+  const [person, setPerson] = useState<DataState>();  
 
   const handleOpen = () => {
     setOpen(true);
@@ -81,7 +76,7 @@ export default function AllCharacters() {
                 justifyContent: "center",
               }}
             >
-              {data?.map((item: any, index: number) => (
+              {data?.map((item: DataState, index: number) => (
                 <Box
                   key={index}
                   sx={{
@@ -152,7 +147,7 @@ export default function AllCharacters() {
               }}
             >
               <img
-                src={person.image === "" ? "/semImagem.jpg" : person.image}
+                src={person?.image === "" ? "/semImagem.jpg" : person?.image}
                 alt=""
                 width={"29.5%"}
                 height={"73.2%"}
@@ -170,7 +165,7 @@ export default function AllCharacters() {
                 >
                   Nome:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.name}
+                    {person?.name}
                   </Typography>
                 </Typography>
                 <Typography
@@ -184,7 +179,7 @@ export default function AllCharacters() {
                 >
                   Casa:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.house}
+                    {person?.house}
                   </Typography>
                 </Typography>
                 <Typography
@@ -198,7 +193,7 @@ export default function AllCharacters() {
                 >
                   Espécie:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.species}
+                    {person?.species}
                   </Typography>
                 </Typography>
                 <Typography
@@ -212,7 +207,7 @@ export default function AllCharacters() {
                 >
                   Data de Nasc:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.dateOfBirth}
+                    {person?.dateOfBirth}
                   </Typography>
                 </Typography>
                 <Typography
@@ -226,7 +221,7 @@ export default function AllCharacters() {
                 >
                   Patronus:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.patronus}
+                    {person?.patronus}
                   </Typography>
                 </Typography>
                 <Typography
@@ -252,7 +247,7 @@ export default function AllCharacters() {
                   >
                     - Madeira:
                     <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person.wand?.wood}
+                      {person?.wand?.wood}
                     </Typography>
                   </Typography>{" "}
                   <Typography
@@ -266,7 +261,7 @@ export default function AllCharacters() {
                   >
                     - Núcleo:
                     <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person.wand?.core}
+                      {person?.wand?.core}
                     </Typography>
                   </Typography>{" "}
                   <Typography
@@ -280,7 +275,7 @@ export default function AllCharacters() {
                   >
                     - Comprimento:
                     <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person.wand?.length}
+                      {person?.wand?.length}
                     </Typography>
                   </Typography>
                 </Box>
@@ -295,7 +290,7 @@ export default function AllCharacters() {
                 >
                   Ancestralidade:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.ancestry}
+                    {person?.ancestry}
                   </Typography>
                 </Typography>
                 <Typography
@@ -309,7 +304,7 @@ export default function AllCharacters() {
                 >
                   Ator:
                   <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person.actor}
+                    {person?.actor}
                   </Typography>
                 </Typography>
               </Box>
