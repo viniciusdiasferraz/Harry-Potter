@@ -1,7 +1,8 @@
+import { TitleProps } from "@/types/types";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
-export default function Title({ text, textTransform }: any) {
+export default function Title({ text, textTransform }: TitleProps) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: "2rem" }}>
       <Image
@@ -19,7 +20,7 @@ export default function Title({ text, textTransform }: any) {
           color: "#A6955A",
           position: "relative",
           left: "4rem",
-          textTransform: textTransform ,
+          textTransform: textTransform,
         }}
       >
         {text}
