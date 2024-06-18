@@ -32,3 +32,9 @@ export interface DataState {
     image: string
 
 }
+
+export interface PropsModal {
+    open: boolean,
+    handleClose: ()=> void,
+    person: DataState | undefined,
+}
