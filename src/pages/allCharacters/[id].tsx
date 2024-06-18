@@ -8,22 +8,15 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { useState } from "react";
-import useCharacter from "../../fetch/fetch-characters";
+import { useEffect, useState } from "react";
+import useCharacter from "../../service/fetch/fetch-characters";
 import CloseIcon from "@mui/icons-material/Close";
 import Title from "@/components/Title";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
+import Header from "@/components/Header";
 import { DataState } from "@/types/types";
-
-const BootstrapDialog = styled(Dialog)(({ theme }: any) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+import Modal from "@/components/Modal";
 
 export default function AllCharacters() {
   const router = useRouter();
@@ -31,7 +24,7 @@ export default function AllCharacters() {
   const { data, getCharacters, getCharacterHouses, removeLoading } =
     useCharacter();
   const [open, setOpen] = useState(false);
-  const [person, setPerson] = useState<DataState>();  
+  const [person, setPerson] = useState<DataState>();
 
   const handleOpen = () => {
     setOpen(true);
@@ -41,15 +34,20 @@ export default function AllCharacters() {
     setOpen(false);
   };
 
-  if (id === "all") {
-    getCharacters();
-  }
-  if (id !== "all") {
-    getCharacterHouses(id);
-  }
+
+  useEffect(() => {
+    if (id === "all") {
+      getCharacters();
+    }
+    if (id !== "all") {
+      getCharacterHouses(id);
+    }
+  }, [id])
+
 
   return (
     <>
+      <Header />
       <Box sx={{ backgroundColor: "#0d1d26", height: "auto" }}>
         <Container
           sx={{
@@ -111,206 +109,11 @@ export default function AllCharacters() {
             {!removeLoading && <Loading />}
           </Box>
         </Container>
-        <BootstrapDialog
-          onClose={handleClose}
-          aria-labelledby="customized-dialog-title"
+        <Modal
+          handleClose={handleClose}
           open={open}
-          sx={{ width: "100%" }}
-          fullWidth={true}
-          maxWidth={"md"}
-        >
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: "#031C29",
-              backgroundColor: "#A6955A",
-              width: "25px",
-              height: "25px",
-              ":hover": {
-                backgroundColor: "rgba(166, 149, 90, 0.5)",
-              },
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-          <DialogContent dividers sx={{ background: "#171717" }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                height: "100%",
-              }}
-            >
-              <img
-                src={person?.image === "" ? "/semImagem.jpg" : person?.image}
-                alt=""
-                width={"29.5%"}
-                height={"73.2%"}
-                style={{ border: "0.2rem solid #A6955A", objectFit: "cover" }}
-              />
-              <Box width={"40%"}>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Nome:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.name}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Casa:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.house}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Espécie:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.species}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Data de Nasc:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.dateOfBirth}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Patronus:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.patronus}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Varinha:
-                </Typography>
-                <Box>
-                  <Typography
-                    sx={{
-                      color: "#A6955A",
-                      fontSize: "1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    - Madeira:
-                    <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person?.wand?.wood}
-                    </Typography>
-                  </Typography>{" "}
-                  <Typography
-                    sx={{
-                      color: "#A6955A",
-                      fontSize: "1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    - Núcleo:
-                    <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person?.wand?.core}
-                    </Typography>
-                  </Typography>{" "}
-                  <Typography
-                    sx={{
-                      color: "#A6955A",
-                      fontSize: "1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    - Comprimento:
-                    <Typography sx={{ color: "#ffffff", fontSize: "0.9rem" }}>
-                      {person?.wand?.length}
-                    </Typography>
-                  </Typography>
-                </Box>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Ancestralidade:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.ancestry}
-                  </Typography>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#A6955A",
-                    fontSize: "1.2rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  Ator:
-                  <Typography sx={{ color: "#ffffff", fontSize: "1rem" }}>
-                    {person?.actor}
-                  </Typography>
-                </Typography>
-              </Box>
-            </Box>
-          </DialogContent>
-        </BootstrapDialog>
+          person={person}
+        />
       </Box>
     </>
   );

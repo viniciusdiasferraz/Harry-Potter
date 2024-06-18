@@ -1,3 +1,4 @@
+import { api } from "@/service/api";
 import { DataState } from "@/types/types";
 import axios from "axios";
 import { useState } from "react";
@@ -8,7 +9,7 @@ const useCharacter = () => {
 
   const getCharacters = () => {
     axios
-      .get("https://hp-api.onrender.com/api/characters")
+      api.get('/characters')
       .then((response) => {
         setData(response.data);
         setRemoveLoading(true);
@@ -23,7 +24,7 @@ const useCharacter = () => {
 
   const getCharacterHouses = (house: string | string[] | undefined) => {
     axios
-      .get(`https://hp-api.onrender.com/api/characters/house/${house}`)
+      api.get(`/characters/house/${house}`)
       .then((response) => {
         setData(response.data);
         setRemoveLoading(true);
