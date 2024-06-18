@@ -5,15 +5,15 @@ import Title from "../../components/Title";
 import { useState } from "react";
 
 export default function Home() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [house, setHouse] = useState<string>("");
 
   const handleChangeAllCharacters = () => {
-    router.push("/allCharacters/all");
+    push("/allCharacters/all");
   };
 
   if (house) {
-    router.push(`/allCharacters/${house}`);
+    push(`/allCharacters/${house}`);
   }
 
   return (
