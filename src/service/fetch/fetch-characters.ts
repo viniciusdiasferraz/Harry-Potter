@@ -9,7 +9,7 @@ const useCharacter = () => {
 
   const getCharacters = () => {
     axios
-      api.get('/characters')
+    api.get('/characters')
       .then((response) => {
         setData(response.data);
         setRemoveLoading(true);
@@ -24,7 +24,7 @@ const useCharacter = () => {
 
   const getCharacterHouses = (house: string | string[] | undefined) => {
     axios
-      api.get(`/characters/house/${house}`)
+    api.get(`/characters/house/${house}`)
       .then((response) => {
         setData(response.data);
         setRemoveLoading(true);

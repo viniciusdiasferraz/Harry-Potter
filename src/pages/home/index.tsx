@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Title from "../../components/Title";
 import { useState } from "react";
+import HeaderHome from "@/components/headerHome";
 
 export default function Home() {
   const { push } = useRouter();
@@ -18,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <Box sx={{ backgroundColor: "#A6955A", width: "100%", height: "4vh" }} />
+      <HeaderHome />
       <Box
         sx={{
           backgroundImage: "url(./home-background.png)",
@@ -91,7 +92,7 @@ export default function Home() {
                 alt="Logo Home"
                 width={272}
                 height={288}
-                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                style={{ cursor: "pointer", transition: "transform 0.3s ease", borderRadius: "10px" }}
                 onClick={() => {
                   setHouse("gryffindor");
                 }}
@@ -107,7 +108,7 @@ export default function Home() {
                 alt="Logo Home"
                 width={272}
                 height={288}
-                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                style={{ cursor: "pointer", transition: "transform 0.3s ease", borderRadius: "10px" }}
                 onClick={() => setHouse("Slytherin")}
                 onMouseOver={(e) =>
                   (e.currentTarget.style.transform = "scale(1.1)")
@@ -121,7 +122,7 @@ export default function Home() {
                 alt="Logo Home"
                 width={272}
                 height={288}
-                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                style={{ cursor: "pointer", transition: "transform 0.3s ease", borderRadius: "10px" }}
                 onClick={() => setHouse("Hufflepuff")}
                 onMouseOver={(e) =>
                   (e.currentTarget.style.transform = "scale(1.1)")
@@ -135,7 +136,7 @@ export default function Home() {
                 alt="Logo Home"
                 width={272}
                 height={288}
-                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                style={{ cursor: "pointer", transition: "transform 0.3s ease", borderRadius: "10px" }}
                 onClick={() => setHouse("Ravenclaw")}
                 onMouseOver={(e) =>
                   (e.currentTarget.style.transform = "scale(1.1)")
