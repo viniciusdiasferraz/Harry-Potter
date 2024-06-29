@@ -4,8 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 
 const useCharacter = () => {
-  const [data, setData] = useState<DataState[]>();
-  const [removeLoading, setRemoveLoading] = useState<boolean>(false);
+  const [data, setData] = useState<DataState>();
+  const [removeLoading, setRemoveLoading] = useState(false);
 
   const getCharacters = () => {
     axios

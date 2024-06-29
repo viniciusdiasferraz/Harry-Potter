@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Image from "next/image";
-import loading from "../../public/loading.gif";
+import loading from "../../../public/loading.gif";
 
 
 export default function Loading() {
@@ -14,7 +14,7 @@ export default function Loading() {
         alignItems: "center",
       }}
     >
-      <Image src={loading} alt="Loader"/>
+      <Image src={loading} alt="Loader" />
     </Box>
   );
 }

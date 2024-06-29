@@ -2,7 +2,7 @@ import { CSSObject } from "styled-components"
 
 export interface TitleProps {
     text: string,
-    textTransform?:  CSSObject['textTransform']
+    textTransform?: CSSObject['textTransform']
 }
 
 export interface DataState {
@@ -35,6 +35,17 @@ export interface DataState {
 
 export interface PropsModal {
     open: boolean,
-    handleClose: ()=> void,
+    handleClose: () => void,
     person: DataState | undefined,
+}
+
+export interface MenuDrawerProps {
+    open: boolean,
+    isClose: (valor: boolean) => void;
+}
+
+export interface CardBoxPorps {
+    data: DataState | undefined,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setPerson: React.Dispatch<React.SetStateAction<any>>,
 }
