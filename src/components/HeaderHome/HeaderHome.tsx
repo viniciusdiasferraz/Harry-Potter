@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
-import SideBar from "./SideBar";
+import SideBar from "../MenuDrawer/MenuDrawer";
 
 export default function HeaderHome() {
   const { push } = useRouter();
@@ -24,7 +24,7 @@ export default function HeaderHome() {
               backgroundColor: "#053543",
             },
           }}
-            onClick={() => { push("/allCharacters/all") }}> Veja todos os personagens </Button>
+            onClick={() => { push("/characters/all") }}> Veja todos os personagens </Button>
 
           <Button sx={{
             color: "#A6955A", background: "#031C29", "&:hover": {

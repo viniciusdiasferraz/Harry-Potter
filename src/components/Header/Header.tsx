@@ -1,9 +1,9 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Box, Button } from "@mui/material";
-import SideBar from "./SideBar";
 import { useState } from "react";
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+import SideBar from "../MenuDrawer/MenuDrawer";
 
 
 export default function Header() {

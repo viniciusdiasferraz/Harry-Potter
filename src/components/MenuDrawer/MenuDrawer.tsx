@@ -1,15 +1,17 @@
+import { MenuDrawerProps } from "@/types/types";
 import { Box, Button, Drawer } from "@mui/material"
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function SideBar(props: any) {
+export default function MenuDrawer(props: MenuDrawerProps) {
+
   const { push } = useRouter();
   const { open, isClose } = props
   const [house, setHouse] = useState<string>("");
 
   if (house) {
-    push(`/allCharacters/${house}`);
+    push(`/characters/${house}`);
   }
 
   return (
