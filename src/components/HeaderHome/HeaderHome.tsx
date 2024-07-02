@@ -31,7 +31,14 @@ export default function HeaderHome() {
               backgroundColor: "#053543",
             },
           }}
-            onClick={() => { push("") }}>Entrar</Button>
+            onClick={() => { push("/LoginPage") }}>Entrar</Button>
+
+          <Button sx={{
+            color: "#A6955A", background: "#031C29", "&:hover": {
+              backgroundColor: "#053543",
+            },
+          }}
+            onClick={() => { push("") }}>Cadastre-se</Button>
         </Box>
       </Box>
       <SideBar open={open} isClose={isClose} />

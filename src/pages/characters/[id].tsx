@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import useCharacter from "../../service/fetch/fetch-characters";
@@ -44,7 +43,7 @@ export default function AllCharacters() {
       <Box sx={{ backgroundColor: "#0d1d26", height: "auto" }}>
         <Container
           sx={{
-            maxWidth: "1280px !omportant",
+            maxWidth: "1280px !important",
             backgroundImage: "url(/background_harry_azul_marinho.png)",
             height: !removeLoading ? "100vh" : "auto",
           }}
