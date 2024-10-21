@@ -1,19 +1,13 @@
-import { useAuth } from "@/context/AuthContext";
 import { auth } from "@/service/firebaseConfig";
-import hasTokenExpired from "@/utils/tokenExpired";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import {
-  useSignInWithEmailAndPassword,
-  useSignOut,
-} from "react-firebase-hooks/auth";
+import { useState } from "react";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const [emailLogin, setEmailLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [signOut] = useSignOut(auth);
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -39,11 +33,6 @@ export default function LoginPage() {
       console.error("Erro ao fazer login:", err);
     }
   };
-
-  // const hasTokenExpired = (loginDate: number, expiration: number) => {
-  //   const currentTime = Math.floor(Date.now() / 1000);
-  //   return currentTime > loginDate + expiration;
-  // };
 
   return (
     <Box sx={{ display: "flex", height: "100vh", padding: "0" }}>
