@@ -1,43 +1,49 @@
 import { useAuth } from "@/context/AuthContext";
 import { auth } from "@/service/firebaseConfig";
+import hasTokenExpired from "@/utils/tokenExpired";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
-  useUpdateProfile,
+  useSignOut,
 } from "react-firebase-hooks/auth";
 
 export default function LoginPage() {
-  const loggedInUser = useAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [signOut] = useSignOut(auth);
 
-  // usado para criar usuarios
-  // const [createUserWithEmailAndPassword, user, loading, error] =
-  //   useCreateUserWithEmailAndPassword(auth);
-
-  // usado pra acessar os dados do usuario
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  // usado pra fazer alterações nos dados de usuario
-  // const [updateProfile, updating, error] = useUpdateProfile(auth);
+  const handleSignIn = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const response = await signInWithEmailAndPassword(emailLogin, password);
+      const { lastLoginAt, expiresIn, accessToken, email, displayName } =
+        response?.user as any;
 
-  const HandleSignIn = (e: any) => {
-    e.prevent?.default;
+      const userLoged = {
+        name: displayName,
+        email: email,
+        token: accessToken,
+        loginDate: Number(lastLoginAt),
+        expirationTime: Number(expiresIn),
+      };
+      localStorage.setItem("user", JSON.stringify(userLoged));
 
-    // createUserWithEmailAndPassword(email, password);
-
-    signInWithEmailAndPassword(email, password);
-    console.log(user, "user");
-
-    // updateProfile({ displayName: "vinicius" });
+      router.push("/");
+    } catch (err) {
+      console.error("Erro ao fazer login:", err);
+    }
   };
 
-  if (loggedInUser) router.push("/home");
+  // const hasTokenExpired = (loginDate: number, expiration: number) => {
+  //   const currentTime = Math.floor(Date.now() / 1000);
+  //   return currentTime > loginDate + expiration;
+  // };
 
   return (
     <Box sx={{ display: "flex", height: "100vh", padding: "0" }}>
@@ -64,16 +70,12 @@ export default function LoginPage() {
           <TextField
             label="E-mail"
             type="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e) => setEmailLogin(e.target.value)}
           />
           <TextField
             label="Senha"
             type="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             sx={{
@@ -83,7 +85,7 @@ export default function LoginPage() {
                 backgroundColor: "#053543",
               },
             }}
-            onClick={HandleSignIn}
+            onClick={handleSignIn}
           >
             Fazer Login
           </Button>
